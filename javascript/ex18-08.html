@@ -1,0 +1,55 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ex18-08</title>
+        <style>
+.highlight {
+    background: #ff0;
+    font-weight: bold;
+}
+        </style>
+        <script>
+function highlightParas(containing) {
+    if(typeof containing === 'string') {
+        containing = new RegExp(`${containing}`);
+    }
+    const paras = document.getElementsByTagName('p');
+    for(let p of paras) {
+        if(!containing.test(p.textContent)) {
+            continue;
+        } else {
+            p.classList.add('hghlight');
+        }
+    }
+}
+
+function removeParaHighlights() {
+    const paras = document.getElementByTagName('p');
+    // const paras = document.querySelectorAll('p.highlight');
+    for(let p of paras) {
+        p.classList.remove('highlight');
+    }
+}
+        </script>
+    </head>
+    <body>
+        <header><h1>スタイルの変更</h1></header>
+        <div id="content">
+            <p>第一段落にはユニークという文字が含まれています。</p>
+            <p>第二段落には含まれていません。</p>
+            <p>第三段落にも含まれていません。</p>
+            <p>第四段落にと第五段落にはユニークという文字が含まれています。これは第四段落です。</p>
+            <p>第四段落にと第五段落にはユニークという文字が含まれています。これは第五段落です。</p>
+        </div>
+        <div style="txt-align: left;">
+            <button data-action="highlight" data-containing="ユニーク">
+                「ユニークという文字列を含む段落をハイライト
+            </button>
+            <button data-action="removeHighlight">
+                ハイライトをやめる
+            </button>
+        </div>
+    </body>
+</html>
