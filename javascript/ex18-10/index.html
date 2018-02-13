@@ -15,15 +15,20 @@
 function refreshServerInfo() {
     const req = new XMLHttpRequest();
     req.addEventListener('load', function() {
+        console.log(this.responseText);
         const data = JSON.parse(this.responseText);
+        console.log(data);
         const serverInfo = document.querySelector('.serverInfo');
+        console.log(serverInfo);
         Object.keys(data).forEach(p => {
             const replacements = serverInfo.querySelectorAll(`[data-replace="${p}"]`);
+            console.log(replacements);
             for(let r of replacements) {
+                console.log(r.textContent);
                 r.textContent = data[p];
+                console.log(r.textContent);
             }
         });
-        console.log(this.responseText);
     });
     req.open('GET', 'http://localhost:7070/', true);
     req.send();
