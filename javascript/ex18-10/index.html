@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ajaxサンプル</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Ajaxのサンプル</h1>
+        <div class="serverInfo">
+            サーバのプラットフォーム: <span data-replace="platform">???</span><br />
+            Node.jsのバージョン: <span data-replace="nodeVersion">???</span><br />
+            サーバが起動してからの時間: <span data-replace="uptime">???</span> 秒
+        </div>
+        <script>
+function refreshServerInfo() {
+    const req = new XMLHttpRequest();
+    req.addEventListener('load', function() {
+        const data = JSON.parse(this.responseText);
+        const serverInfo = document.querySelector('.serverInfo');
+        Object.keys(data).forEach(p => {
+            const replacements = serverInfo.querySelectorAll(`[data-replace="${p}"]`);
+            for(let r of replacements) {
+                r.textContent = data[p];
+            }
+        });
+        console.log(this.responseText);
+    });
+    req.open('GET', 'http://localhost:7070/', true);
+    req.send();
+}
+
+refreshServerInfo();
+        </script>
+    </body>
+</html>
